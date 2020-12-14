@@ -11,7 +11,7 @@ This app is used to find where in Montreal a specific bus is, so you don't have 
 
 # Important/Helpful links
 
-* You will need to obtain an API key from Google to use this app. Without this key the app will not run. Follow these [instruction](https://developers.google.com/maps/documentation/directions/get-api-key) to get your API key.
+* You will need to obtain an API key from [STM website](https://developpeurs.stm.info/) to use this app. Without this key the app will not run. You must register an account and follow the instructions.
 
 *  To make this app useful, you'll want to add your own GPS coordinates. Go to [gps-coordinates.net](https://www.gps-coordinates.net/). Use the DD (decimal degrees) format and not the DMS (degrees, minutes, seconds).
 
@@ -24,6 +24,14 @@ pip install requests
 ```
 
 # API
+
+```bash
+GET http://localhost:5000/stm/api/v1.0/locations
+```
+
+```bash
+GET http://localhost:5000/stm/api/v1.0/locations/bus/<busNumber>
+```
 
 ```bash
 GET http://localhost:5000/stm/api/v1.0/locations/busnearby/<busNumber>/<lat>/<long>/
@@ -54,12 +62,12 @@ Sample error response:
 
 1. Download app.py
 2. Install all dependencies in the above Installation section
-3. Enter [your API key](https://developers.google.com/maps/documentation/directions/get-api-key) in the place of ```'yourapikey'``` on line 7 of app.py
+3. Enter your API key in the place of ```'yourapikey'``` on line 7 of app.py
 4. Run app.py
 5. Open your browser and paste in (without pressing enter):
 ```bash
 http://localhost:5000/stm/api/v1.0/locations/busnearby/<busNumber>/<lat>/<long>/
 ```
-6. Enter the bus number you want to locate in place of <busNumber>
-7. Enter your latitude and longitude in place of <lat> and <long> respectively.
+6. Enter the bus number you want to locate in place of ```<busNumber>```
+7. Enter your latitude and longitude in place of ```<lat>``` and ```<long>``` respectively.
 8. Press enter

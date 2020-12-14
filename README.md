@@ -58,6 +58,8 @@ Sample success response:
         }
       }
     }, 
+  ]
+}
 ```
 Sample error response:
 
@@ -98,6 +100,7 @@ Sample success response:
       }
     }
   }, 
+]
 ```
 Sample error response:
 
@@ -122,7 +125,7 @@ Sample success response:
       -73.628716
     ], 
     "km": 0.19
-  }, 
+}
 ```
 
 Sample error response:

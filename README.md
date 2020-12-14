@@ -11,7 +11,7 @@ This app is used to find where in Montreal a specific bus is, so you don't have 
 
 # Important/Helpful links
 
-* You will need to obtain an API key from [STM website](https://developpeurs.stm.info/) to use this app. Without this key the app will not run. You must register an account and follow the instructions.
+* You will need to obtain an API key from the [STM website](https://developpeurs.stm.info/) to use this app. Without this key the app will not run. You must register an account and follow the instructions.
 
 *  To make this app useful, you'll want to add your own GPS coordinates. Go to [gps-coordinates.net](https://www.gps-coordinates.net/). Use the DD (decimal degrees) format and not the DMS (degrees, minutes, seconds).
 
@@ -25,16 +25,91 @@ pip install requests
 
 # API
 
-```bash
-GET http://localhost:5000/stm/api/v1.0/locations
-```
+### All busses
 
 ```bash
-GET http://localhost:5000/stm/api/v1.0/locations/bus/<busNumber>
+GET /stm/api/v1.0/locations
 ```
 
+Sample success response:
+
+```json
+{
+  "entity": [
+    {
+      "id": "25203", 
+      "isDeleted": false, 
+      "vehicle": {
+        "currentStatus": "IN_TRANSIT_TO", 
+        "currentStopSequence": 23, 
+        "position": {
+          "latitude": 45.468166, 
+          "longitude": -73.56605
+        }, 
+        "timestamp": "1607917279", 
+        "trip": {
+          "routeId": "71", 
+          "startDate": "20201213", 
+          "startTime": "22:18:00", 
+          "tripId": "221331010"
+        }, 
+        "vehicle": {
+          "id": "25203"
+        }
+      }
+    }, 
+```
+Sample error response:
+
+```json
+{
+  "error": "Not found"
+}
+```
+### Specific bus
+
 ```bash
-GET http://localhost:5000/stm/api/v1.0/locations/busnearby/<busNumber>/<lat>/<long>/
+GET /stm/api/v1.0/locations/bus/<busNumber>
+```
+
+Sample success response:
+
+```json
+[
+  {
+    "id": "36002", 
+    "isDeleted": false, 
+    "vehicle": {
+      "currentStatus": "STOPPED_AT", 
+      "currentStopSequence": 9, 
+      "position": {
+        "latitude": 45.463085, 
+        "longitude": -73.646515
+      }, 
+      "timestamp": "1607917284", 
+      "trip": {
+        "routeId": "51", 
+        "startDate": "20201213", 
+        "startTime": "22:36:00", 
+        "tripId": "222772045"
+      }, 
+      "vehicle": {
+        "id": "36002"
+      }
+    }
+  }, 
+```
+Sample error response:
+
+```json
+{
+  "error": "Not found"
+}
+```
+### Closest bus to you
+
+```bash
+GET /stm/api/v1.0/locations/busnearby/<busNumber>/<lat>/<long>/
 ```
 
 Sample success response:
@@ -57,17 +132,3 @@ Sample error response:
   "error": "Not found"
 }
 ```
-
-# Usage
-
-1. Download app.py
-2. Install all dependencies in the above Installation section
-3. Enter your API key in the place of ```'yourapikey'``` on line 7 of app.py
-4. Run app.py
-5. Open your browser and paste in (without pressing enter):
-```bash
-http://localhost:5000/stm/api/v1.0/locations/busnearby/<busNumber>/<lat>/<long>/
-```
-6. Enter the bus number you want to locate in place of ```<busNumber>```
-7. Enter your latitude and longitude in place of ```<lat>``` and ```<long>``` respectively.
-8. Press enter
